@@ -1,0 +1,22 @@
+{
+  "name": "sealious-channel-rest",
+  "version": "0.1.0",
+  "description": "",
+  "main": "sealious-module.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sealious-plugin"
+  ],
+  "author": "Sealious Team",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "bluebird": "^2.9.9",
+    "color": "^0.8.0",
+    "hapi": "^8.4.0",
+    "sanitize-html": "^1.6.1",
+    "sealious-www-server": "^0.4.3",
+    "sha1": "^1.1.0"
+  }
+}
