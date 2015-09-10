@@ -1,3 +1,4 @@
+require("sealious-www-server");
 var Sealious = require("sealious");
 var www_server = Sealious.ChipManager.get_chip("channel", "www_server");
 
