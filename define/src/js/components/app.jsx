@@ -1,12 +1,14 @@
-var Sealious_rest_docs = {};
+var Sealious = {};
 
 var React = require("react");
 var Router = require("react-router");
 var Store = require("../modules/store.js");
 
-// Sealious_rest_docs.MapL = require("./map.jsx");
+Sealious.Navigation = require("./navigation.jsx");
+Sealious.MainView = require("./main-view.jsx");
+Sealious.ResourceType = require("./resource-type.jsx");
 
-Sealious_rest_docs.App = React.createClass({
+Sealious.App = React.createClass({
 	mixins: [ Router.State, Router.Navigation],
 	getInitialState: function(){
 		return {
@@ -39,24 +41,26 @@ Sealious_rest_docs.App = React.createClass({
 	},
 
 	render: function () {
-		var name = this.getRoutes().reverse()[0].name;
-
 		return (
 			<div className="app">
-				<Router.RouteHandler 
-					key={name} 
-					structure={this.state.structure} 
-					changeAttributeValue={this.changeAttributeValue}/>
-
+				<p>App</p>
+				<Sealious.Navigation structure={this.state.structure}/>		
+				<Sealious.MainView structure={this.state.structure}/>			
 			</div>
 		)
 	}
 });
 
-module.exports = Sealious_rest_docs;
+module.exports = Sealious;
 
+				// <Sealious.MainView/>
 
-// <Sealious_rest_docs.Panel 
+// Sealious.Editor = require("./editor.jsx");
+// Sealious.Form = require("./form.jsx");
+// Sealious.Description = require("./description.jsx");
+// Sealious.Results = require("./results.jsx");
+
+// <Sealious.Panel 
 // 	places={this.state.places} 
 // 	mode={this.state.mode}
 // 	found_coords={this.state.found_coords}
