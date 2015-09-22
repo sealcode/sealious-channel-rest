@@ -5,7 +5,6 @@ var Router = require("react-router");
 var Store = require("../modules/store.js");
 
 Sealious.Navigation = require("./navigation.jsx");
-Sealious.MainView = require("./main-view.jsx");
 Sealious.ResourceType = require("./resource-type.jsx");
 
 Sealious.App = React.createClass({
@@ -28,7 +27,7 @@ Sealious.App = React.createClass({
 	},
 
 	storeStructure: function(structure){
-		console.log("loaded rest structure", structure);
+		console.log("app.jsx: loaded rest structure", structure);
 		this.setState({
 			structure: structure
 		});
@@ -45,23 +44,14 @@ Sealious.App = React.createClass({
 			<div className="app">
 				<p>App</p>
 				<Sealious.Navigation structure={this.state.structure}/>		
-				<Sealious.MainView structure={this.state.structure}/>			
+				<div className="content">
+					<Router.RouteHandler
+						key={name}
+						structure={this.props.structure}/>
+				</div>			
 			</div>
 		)
 	}
 });
 
 module.exports = Sealious;
-
-				// <Sealious.MainView/>
-
-// Sealious.Editor = require("./editor.jsx");
-// Sealious.Form = require("./form.jsx");
-// Sealious.Description = require("./description.jsx");
-// Sealious.Results = require("./results.jsx");
-
-// <Sealious.Panel 
-// 	places={this.state.places} 
-// 	mode={this.state.mode}
-// 	found_coords={this.state.found_coords}
-// 	map_center_coords={this.state.map_center_coords}/>
