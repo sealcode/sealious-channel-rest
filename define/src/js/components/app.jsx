@@ -6,6 +6,7 @@ var Store = require("../modules/store.js");
 
 Sealious.Navigation = require("./navigation.jsx");
 Sealious.ResourceType = require("./resource-type.jsx");
+Sealious.RestHandler = require("./rest-handler.jsx");
 
 Sealious.App = React.createClass({
 	mixins: [ Router.State, Router.Navigation],
@@ -45,9 +46,7 @@ Sealious.App = React.createClass({
 				<p>App</p>
 				<Sealious.Navigation structure={this.state.structure}/>		
 				<div className="content">
-					<Router.RouteHandler
-						key={name}
-						structure={this.props.structure}/>
+					<Router.RouteHandler key={name}/>
 				</div>			
 			</div>
 		)
