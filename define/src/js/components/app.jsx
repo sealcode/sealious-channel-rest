@@ -2,11 +2,16 @@ var Sealious = {};
 
 var React = require("react");
 var Router = require("react-router");
+var Description_provider = require("../modules/description-provider.js");
 var Store = require("../modules/store.js");
+
+module.exports = Sealious;
 
 Sealious.Navigation = require("./navigation.jsx");
 Sealious.ResourceType = require("./resource-type.jsx");
-Sealious.RestHandler = require("./rest-handler.jsx");
+Sealious.Output = require("./output.jsx");
+Sealious.RestHandler_method = require("./rest-handler-method.jsx");
+
 
 Sealious.App = React.createClass({
 	mixins: [ Router.State, Router.Navigation],
@@ -20,11 +25,8 @@ Sealious.App = React.createClass({
 		this.loadStructure();
 	},
 
-	componentWillMount: function(){
-	},
-
 	loadStructure: function(){
-		Store.getStructure().then(this.storeStructure);
+		Description_provider.getStructure().then(this.storeStructure);
 	},
 
 	storeStructure: function(structure){
@@ -34,23 +36,15 @@ Sealious.App = React.createClass({
 		});
 	},
 
-	changeAttributeValue: function(attribute_name, value){
-		var obj = {};
-		obj[attribute_name] = value;
-		this.setState(obj);
-	},
-
 	render: function () {
 		return (
 			<div className="app">
 				<p>App</p>
 				<Sealious.Navigation structure={this.state.structure}/>		
 				<div className="content">
-					<Router.RouteHandler key={name}/>
+					<Router.RouteHandler structure={this.state.structure}/>
 				</div>			
 			</div>
 		)
 	}
 });
-
-module.exports = Sealious;

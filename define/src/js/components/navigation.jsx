@@ -9,7 +9,7 @@ var Naviagtion = React.createClass({
 		var structure = this.props.structure.map(function(resource_type){
 			return (
 				<li id={resource_type.name} key={resource_type.name}>
-					<a href={"#/resource-type/"+resource_type.name}>{resource_type.human_readable_name}</a>
+			 		<Router.Link to="resource-type-view" params={{resource_name:resource_type.name}}>{resource_type.human_readable_name}</Router.Link>
 				</li>
 			);
 		}.bind(this));

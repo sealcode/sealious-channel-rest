@@ -1,6 +1,7 @@
 var React = require("react");
 var Router = require("react-router");
-var Store = require("../modules/store.js");
+var Description_provider = require("../modules/description-provider.js");
+var Sealious = require("./app.jsx");
 
 var ResourceType = React.createClass({
 	mixins: [Router.State],
@@ -8,10 +9,6 @@ var ResourceType = React.createClass({
 		return {
 			resource_type_description: null
 		}
-	},
-
-	componentDidMount: function(){
-		this.reloadStructure();
 	},
 	
 	componentWillReceiveProps: function(){
@@ -23,14 +20,13 @@ var ResourceType = React.createClass({
 		
 		var resource_type_name = this.getParams().resource_name;
 
-		Store.getResourceTypeDescription(resource_type_name)
+		Description_provider.getResourceTypeDescription(resource_type_name)
 			.then(function(resource_type_description){
 				self.setState({
 					resource_type_description: resource_type_description
 				});
 			});
 	},
-
 
 	render: function() {
 		var resource_type = this.state.resource_type_description;
@@ -40,16 +36,15 @@ var ResourceType = React.createClass({
 				<div className="resource-type-details">
 					<span>ResourceType</span>
 					<div>
+						name: {resource_type.name}<br />	
+						human_readable_name: {resource_type.human_readable_name}<br />
+						summary: {resource_type.summary}<br />
 						<pre>
-							name: {resource_type.name}<br />	
-							human_readable_name: {resource_type.human_readable_name}<br />
-							summary: {resource_type.summary}<br />
-							fields: {JSON.stringify(resource_type.fields, null, 4)}
+							fields: {JSON.stringify(resource_type.fields, null, "\t")}
 						</pre>
 					</div>
-				<Router.RouteHandler
-					key={name}
-					resource_type_description={this.state.resource_type_description}/>
+				<Router.RouteHandler/>
+				<Sealious.Output/>
 				</div>
 			);
 		}else{

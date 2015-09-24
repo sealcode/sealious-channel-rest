@@ -1,5 +1,4 @@
 var qwest = require('qwest');
-var Promise = require("bluebird");
 var EventEmitter = require('event-emitter');
 
 var Store = new function() {
@@ -7,77 +6,27 @@ var Store = new function() {
 	var ee = new EventEmitter();
 	this.on = ee.on.bind(ee);
 
-	var cached_structure = null;
-
-	this.getStructure = function() {
-		if (cached_structure == null) {
-			return qwest.get('/api/v1/description')
-				.then(function(xhr, response) {
-					cached_structure = response;
-					return response; //callback reponseText
-				});
+	this.request = function(method, resource_type_name, data, id) {
+		if (id === undefined) {
+			return qwest[method]('/api/v1/' + resource_type_name, {data})
+					.then(function(xhr, response) {
+						var answer = {
+							"response" : response,
+							"status" : xhr.status,
+							"statusText" : xhr.statusText
+						}
+						ee.emit('change', answer);
+						return response;
+					});
 		} else {
-			return Promise.resolve(cached_structure);
+			return qwest[method]('/api/v1/' + resource_type_name +'/'+ id)
+					.then(function(xhr, response) {
+						ee.emit('change', response);
+						return response;
+					});
 		}
-	};
+	}
 
-	this.getResourceTypeDescription = function(resource_type_name) {
-		return this.getStructure()
-			.then(function(structure) { //callback for qwest
-				for (var i in structure) {
-					if (structure[i].name == resource_type_name) {
-						return structure[i];
-					}
-				}
-				return null;
-			});
-	};
-
-	this.getResourceBody = function(resource) {
-		return qwest.get('/api/v1/' + resource)
-			.then(function(xhr, response) {
-				return response;
-			});
-	};
-
-	this.getResourceBodyById = function(resource, id) {
-		return qwest.get('/api/v1/' + resource + '/' + id)
-			.then(function(xhr, response) {
-				return response;
-			});
-	};
-
-	this.addResource = function(resource, data) {
-		return qwest.post('/api/v1/' + resource, {
-				data
-			})
-			.then(function(xhr, response) {
-				ee.emit('change');
-				return response;
-			});
-	};
-
-	this.updateResource = function(resource, id, data) {
-		return qwest.put('/api/v1' + resource + '/' + id, {
-				data
-			})
-			.then(function(xhr, response) {
-				ee.emit('change');
-				return response;
-			})
-	};
-
-	this.deleteResource = function(resource, id) {
-		return qwest.delete('/api/v1' + resource + '/' + id)
-			.then(function(xhr, response) {
-				ee.emit('change');
-				return response;
-			})
-	};
-
-	this.resourceCheck = function(some_value) {
-		ee.emit('change');
-	};
 };
 
 module.exports = Store;
