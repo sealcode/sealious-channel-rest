@@ -12,6 +12,13 @@
   "author": "Sealious Team",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "bluebird": "^2.10.1",
     "sealious-www-server": "^0.5.2"
+  },
+  "devDependencies": {
+    "qwest": "^2.0.7",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "reactify": "^1.1.1"
   }
 }
