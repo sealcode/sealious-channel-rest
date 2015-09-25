@@ -6,9 +6,7 @@ var Output = React.createClass({
 	mixins: [Router.State],
 	getInitialState: function() {
 		return {
-			output: [],
-			status: [],
-			statusText: []
+			output: {}
 		};
 	},
 	componentWillReceiveProps: function(nextProps) {
@@ -17,23 +15,22 @@ var Output = React.createClass({
 	componentDidMount: function() {
 		var self = this;
 
-		Store.on('change', function(data) {
-			console.log("on change")
-			// console.log(anwser);
+		Store.on('change', function() {
+			var output = Store.getLastResponse();
 			self.setState({
-				output: data.response,
-				status: data.status,
-				statusText: data.statusText
+				output: output
 			});
 		});
 	},
 
 	render: function() {
-		var output = JSON.stringify(this.state.output, null, '\t');
-		var status = this.state.status + " " + this.state.statusText;
+
+		var status = (this.state.output["status"] || "") + " " + (this.state.output["statusText"] || "");
+		var output = JSON.stringify(this.state.output["response"], null, '\t');
+
 		return (
 			<div className="resource-content">
-				<span>Status: {status}</span><br />
+				<span>{status}</span><br />
 				<span>Output</span><br />
 				<pre>{output}</pre>
 			</div>

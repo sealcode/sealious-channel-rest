@@ -1,17 +1,34 @@
 var qwest = require('qwest');
 var Promise = require("bluebird");
+var EventEmitter = require('event-emitter');
 
 var Description_provider = new function() {
+	
+	var ee = new EventEmitter();
+	this.on = ee.on.bind(ee);
 
 	var cached_structure = null;
+	var loading = false;
 
 	this.getStructure = function() {
+		var self = this;
 		if (cached_structure == null) {
-			return qwest.get('/api/v1/description')
-				.then(function(xhr, response) {
-					cached_structure = response;
-					return response; //callback reponseText
+			if(!loading){
+				loading = true;
+				return qwest.get('/api/v1/description')
+					.then(function(xhr, response) {
+						cached_structure = response;
+						ee.emit('change', response);
+						loading = false;
+						return response; //callback to qwest
+					});	
+			}else{
+				return new Promise(function (resolve, reject){
+					ee.on("change", function(){
+						resolve(cached_structure);
+					})
 				});
+			}
 		} else {
 			return Promise.resolve(cached_structure);
 		}

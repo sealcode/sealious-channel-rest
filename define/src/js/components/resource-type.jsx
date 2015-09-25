@@ -10,6 +10,10 @@ var ResourceType = React.createClass({
 			resource_type_description: null
 		}
 	},
+
+	componentDidMount: function() {
+		this.reloadStructure();
+	},
 	
 	componentWillReceiveProps: function(){
 		this.reloadStructure();
@@ -18,7 +22,7 @@ var ResourceType = React.createClass({
 	reloadStructure: function(){
 		var self = this;
 		
-		var resource_type_name = this.getParams().resource_name;
+		var resource_type_name = this.getParams().resource_type_name;
 
 		Description_provider.getResourceTypeDescription(resource_type_name)
 			.then(function(resource_type_description){
