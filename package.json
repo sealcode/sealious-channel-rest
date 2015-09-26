@@ -12,6 +12,6 @@
   "author": "Sealious Team",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "sealious-www-server": "^0.5.2"
+    "sealious-www-server": "^0.6"
   }
 }
