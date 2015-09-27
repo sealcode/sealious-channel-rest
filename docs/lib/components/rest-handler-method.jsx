@@ -49,7 +49,6 @@ var RestHandler_method = React.createClass({
 
 		if (method !== "get" && method !== "delete") {
 			var data = this.refs.form.getValues();
-			console.log(data);
 		}
 
 		if (id !== undefined){
@@ -60,8 +59,9 @@ var RestHandler_method = React.createClass({
 			.then(function(response){
 				self.setState({
 					response_content: response
-				});
-			});
+				})
+			}
+);
 
 	},
 
@@ -85,8 +85,7 @@ var RestHandler_method = React.createClass({
 		if (method === 'get' || method === 'delete') {
 			return (
 				<div>
-					<h1>Input</h1>
-					<p>Method: {method.toUpperCase()} Request on: <code>{url}</code></p>
+					<p>Method: {method.toUpperCase()} <code>{url}</code></p>
 					<br/>
 					<button onClick={this.sendRequest}>sendRequest</button>
 				</div>
@@ -94,8 +93,7 @@ var RestHandler_method = React.createClass({
 		} else {
 			return (
 				<div>
-					<h1>Input</h1>
-					<p>Method: {method.toUpperCase()} Request on: <code>{url}</code></p>
+					<p>Method: {method.toUpperCase()} <code>{url}</code></p>
 					<Form ref="form" onSubmit={this.sendRequest}/>
 				</div>
 			);

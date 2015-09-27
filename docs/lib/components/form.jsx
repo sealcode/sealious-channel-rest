@@ -37,6 +37,20 @@ var Form = React.createClass({
 			<form onSubmit={this.props.onSubmit}>
 				<table>
 					<tbody>
+						<tr>
+						  <th>
+						      <span>Key</span>
+						  </th>
+						  <th>
+						      <span>Type</span>
+						  </th> 
+						  <th>
+						      <span>Value</span>
+						  </th>
+						  <th>
+						     
+						  </th>
+						</tr>
 						{rows}
 					</tbody>
 				</table>
