@@ -7,10 +7,11 @@ var Naviagtion = React.createClass({
 	prepareListResourceTypes: function(){
 
 		var structure = this.props.structure.map(function(resource_type){
+				// <li id={resource_type.name} key={resource_type.name}>
+			 // 		<Router.Link to="resource-type-view" params={{resource_type_name:resource_type.name}}>{resource_type.human_readable_name}</Router.Link>
+				// </li>
 			return (
-				<li id={resource_type.name} key={resource_type.name}>
-			 		<Router.Link to="resource-type-view" params={{resource_type_name:resource_type.name}}>{resource_type.human_readable_name}</Router.Link>
-				</li>
+				<Router.Link to="resource-type-view" params={{resource_type_name:resource_type.name}}><li id={resource_type.name} key={resource_type.name}>{resource_type.human_readable_name}</li></Router.Link>
 			);
 		}.bind(this));
 
@@ -21,14 +22,23 @@ var Naviagtion = React.createClass({
 		var list_resource_types = this.prepareListResourceTypes();
 
 		return (
-			<div>
-				<div className="naviagtion">
-					<p>Naviagtion</p>
+				<div className="navigation">
+					<div className="nav-absolute-logo">
+						<div>
+							<a href="https://github.com/Sealious/sealious-channel-rest/">
+								<img src="logo_sealious.svg"/>
+							</a>
+						</div>
+						<h3>REST API Documentation</h3>
+						<select id="nav-select">
+							<option>Juzer</option>
+							<option>Juzer</option>
+						</select>
+					</div>
 					<ul>
 						{list_resource_types}
 					</ul>
 				</div>
-			</div>
 		);
 	}
 });

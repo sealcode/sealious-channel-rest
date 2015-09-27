@@ -29,10 +29,11 @@ var Output = React.createClass({
 		var output = JSON.stringify(this.state.output["response"], null, '\t');
 
 		return (
-			<div className="resource-content">
+			<div className="content-outputs">
+				<h1>Output</h1>
 				<span>{status}</span><br />
 				<span>Output</span><br />
-				<pre>{output}</pre>
+				<pre id="pre-results">{output}</pre>
 			</div>
 		);
 	}

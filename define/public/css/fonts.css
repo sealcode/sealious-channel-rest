@@ -1,0 +1,45 @@
+@font-face{ /*title*/
+    font-family: 'Lato Regular';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: 
+        url('fonts/eot/lato-regular.eot') format('embedded-opentype'),
+        url('fonts/woff/lato-regular.woff') format('woff'),
+        url('fonts/ttf/lato-regular.ttf') format('truetype'),
+        url('fonts/otf/lato-regular.otf') format('opentype');
+}
+
+@font-face{ /*content*/
+    font-family: 'SourceSansProLight';
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    src: 
+        url('fonts/eot/SourceSansPro-Light.eot') format('embedded-opentype'),
+        url('fonts/woff/SourceSansPro-Light.otf.woff') format('woff'),
+        url('fonts/ttf/SourceSansPro-Light.ttf') format('truetype'),
+        url('fonts/otf/SourceSansPro-Light.otf') format('opentype');
+}
+
+@font-face{ /*pre*/
+    font-family: 'Inconsolata';
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    src:
+        url('fonts/woff/inconsolata.woff') format('woff'),
+        url('fonts/ttf/inconsolata.ttf') format('truetype'),
+        url('fonts/otf/inconsolata.eot') format('embedded-opentype');
+}
+
+@font-face {
+      font-family: 'fontello';
+      src: url('./fonts/fontello/fontello.eot?47005677');
+      src: url('./fonts/fontello/fontello.eot?47005677#iefix') format('embedded-opentype'),
+           url('./fonts/fontello/fontello.woff?47005677') format('woff'),
+           url('./fonts/fontello/fontello.ttf?47005677') format('truetype'),
+           url('./fonts/fontello/fontello.svg?47005677#fontello') format('svg');
+      font-weight: normal;
+      font-style: normal;
+    }

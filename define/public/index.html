@@ -1,21 +1,64 @@
 <!DOCTYPE html>
-<html>
+
 <head>
-    <title>REST DOCS</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-- <link href="style/style.css" rel="stylesheet" type="text/css"> -->
-    <meta name="robots" content="all" />
-    <meta name="viewport" content="width=device-width" />
-    <style type="text/css">
-    html{
-    	font-family: Neris;
-        font-size: 0.9rem;
-    }
-    </style>
-   
+	<meta charset='utf-8'>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Sealious</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="css/fonts.css" rel="stylesheet" type="text/css">
+	<link href="css/responsive.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="lib/styles/solarized_dark.css">
 </head>
+
 <body>
-    <div id="content"></div>
+	<div class="app">
+		<div class="navigation">
+			<div class="nav-absolute-logo">
+				<div>
+					<a href="https://github.com/Sealious/sealious-channel-rest/">
+						<img src="logo_sealious.svg">
+					</a>
+				</div>
+				<h3>REST API Documentation</h3>
+				<select id="nav-select">
+					<option>Juzer</option>
+					<option>Juzer</option>
+				</select>
+			</div>
+			<ul>
+				<a href="#1">
+					<li>Kotek</li>
+				</a>
+				<a href="#">
+					<li>User</li>
+				</a>
+				<a href="#">
+					<li>User</li>
+				</a>
+				<a href="#">
+					<li>User</li>
+				</a>
+			</ul>
+		</div>
+		<div class="content">
+			<div class="content-inputs">
+				<h1>Input</h1>
+			</div>
+			<div class="content-outputs">
+				<h1>Output</h1>
+				<pre id="pre-results">
+				</pre>
+			</div>
+		</div>
+	</div>
+	<script src="lib/highlight.pack.js"></script>
+	<script>
+	hljs.initHighlightingOnLoad();
+	</script>
+	<script scr="js/showStruct.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
-<script type="text/javascript" src="js/main.js"></script>
+
 </html>

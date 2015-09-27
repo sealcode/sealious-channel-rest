@@ -47,7 +47,7 @@ var RestHandler_method = React.createClass({
 
 		var url = "/api/v1/" + resource_type_name;
 
-		if (method !== "get") {
+		if (method !== "get" && method !== "delete") {
 			var data = this.refs.form.getValues();
 			console.log(data);
 		}
@@ -82,14 +82,20 @@ var RestHandler_method = React.createClass({
 		var method = this.getParams().method;
 		var url = this.returnUrl();
 
-		if (method === 'get') {
+		if (method === 'get' || method === 'delete') {
 			return (
-				<button onClick={this.sendRequest}>sendRequest</button>
+				<div>
+					<h1>Input</h1>
+					<p>Method: {method.toUpperCase()} Request on: <code>{url}</code></p>
+					<br/>
+					<button onClick={this.sendRequest}>sendRequest</button>
+				</div>
 			);
 		} else {
 			return (
 				<div>
-					<span>Method: {method.toUpperCase()} Request on: <code>{url}</code></span>
+					<h1>Input</h1>
+					<p>Method: {method.toUpperCase()} Request on: <code>{url}</code></p>
 					<Form ref="form" onSubmit={this.sendRequest}/>
 				</div>
 			);

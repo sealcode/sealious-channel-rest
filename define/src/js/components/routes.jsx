@@ -16,6 +16,8 @@ var routes = (
 );
 
 Router.run(routes, function(Handler) {
-    var element = document.getElementById("content");
+    // var element = document.getElementById("content");
+    var element = document.querySelector(".app");
+
     React.render( <Handler/> , element);
 });

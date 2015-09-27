@@ -38,12 +38,9 @@ Sealious.App = React.createClass({
 
 	render: function () {
 		return (
-			<div className="app">
-				<p>App</p>
+			<div>
 				<Sealious.Navigation structure={this.state.structure}/>		
-				<div className="content">
-					<Router.RouteHandler structure={this.state.structure}/>
-				</div>			
+				<Router.RouteHandler structure={this.state.structure}/>
 			</div>
 		)
 	}

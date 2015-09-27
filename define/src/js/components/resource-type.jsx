@@ -37,22 +37,22 @@ var ResourceType = React.createClass({
 		
 		if(resource_type !== null){         //for loading when user will reload page on e.g /#/resource-type/user
 			return (
-				<div className="resource-type-details">
-					<span>ResourceType</span>
-					<div>
-						name: {resource_type.name}<br />	
-						human_readable_name: {resource_type.human_readable_name}<br />
-						summary: {resource_type.summary}<br />
-						<pre>
-							fields: {JSON.stringify(resource_type.fields, null, "\t")}
-						</pre>
-					</div>
-				<Router.RouteHandler/>
-				<Sealious.Output/>
+				<div>
+					name: {resource_type.name}<br />	
+					human_readable_name: {resource_type.human_readable_name}<br />
+					summary: {resource_type.summary}<br />
+					<pre>
+						fields: {JSON.stringify(resource_type.fields, null, "\t")}
+					</pre>
+					<Router.RouteHandler/>
+					<Sealious.Output/>
 				</div>
 			);
 		}else{
-			return <div/>
+			return (
+				<div>
+				</div>
+			);
 		}
 	}
 });
