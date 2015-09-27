@@ -1,6 +1,6 @@
 var React = require("react");
 var Router = require("react-router");
-var Description_provider = require("../modules/description-provider.js");
+var Description_provider = require("../stores/description-provider.js");
 var Sealious = require("./app.jsx");
 
 var ResourceType = React.createClass({
@@ -37,13 +37,16 @@ var ResourceType = React.createClass({
 		
 		if(resource_type !== null){         //for loading when user will reload page on e.g /#/resource-type/user
 			return (
-				<div>
-					name: {resource_type.name}<br />	
-					human_readable_name: {resource_type.human_readable_name}<br />
-					summary: {resource_type.summary}<br />
-					<pre>
-						fields: {JSON.stringify(resource_type.fields, null, "\t")}
-					</pre>
+				<div className="content">
+					<div className="content-inputs">
+						<h1> Input </h1>
+						name: {resource_type.name}<br />	
+						human_readable_name: {resource_type.human_readable_name}<br />
+						summary: {resource_type.summary}<br />
+						<pre>
+							fields: {JSON.stringify(resource_type.fields, null, "\t")}
+						</pre>
+					</div>
 					<Router.RouteHandler/>
 					<Sealious.Output/>
 				</div>

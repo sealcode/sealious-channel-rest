@@ -2,7 +2,7 @@
   "name": "sealious-channel-rest",
   "version": "0.1.2",
   "description": "",
-  "main": "sealious-channel-rest.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "bluebird": "^2.10.1",
+    "event-emitter": "^0.3.3",
     "sealious-www-server": "^0.5.2"
   },
   "devDependencies": {

@@ -15,9 +15,4 @@ var routes = (
 	</Route>
 );
 
-Router.run(routes, function(Handler) {
-    // var element = document.getElementById("content");
-    var element = document.querySelector(".app");
-
-    React.render( <Handler/> , element);
-});
+module.exports = routes;

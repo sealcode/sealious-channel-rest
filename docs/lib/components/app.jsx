@@ -2,8 +2,8 @@ var Sealious = {};
 
 var React = require("react");
 var Router = require("react-router");
-var Description_provider = require("../modules/description-provider.js");
-var Store = require("../modules/store.js");
+var Description_provider = require("../stores/description-provider.js");
+var Store = require("../stores/store.js");
 
 module.exports = Sealious;
 
@@ -38,7 +38,7 @@ Sealious.App = React.createClass({
 
 	render: function () {
 		return (
-			<div>
+			<div className="app">
 				<Sealious.Navigation structure={this.state.structure}/>		
 				<Router.RouteHandler structure={this.state.structure}/>
 			</div>

@@ -1,7 +1,7 @@
 var React = require("react");
 var Router = require("react-router");
-var Store = require("../modules/store.js");
-var Decription_provider = require("../modules/description-provider.js");
+var Store = require("../stores/store.js");
+var Decription_provider = require("../stores/description-provider.js");
 var Form = require("./form.jsx");
 
 var RestHandler_method = React.createClass({

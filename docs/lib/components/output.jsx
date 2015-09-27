@@ -1,6 +1,6 @@
 var React = require("react");
 var Router = require("react-router");
-var Store = require("../modules/store.js");
+var Store = require("../stores/store.js");
 
 var Output = React.createClass({
 	mixins: [Router.State],
