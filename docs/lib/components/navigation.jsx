@@ -1,5 +1,7 @@
 var React = require("react");
 var Router = require("react-router");
+var Sealious = require("./app.jsx");
+Sealious.SyntaxChanger = require("./syntax-changer.jsx");
 
 var Naviagtion = React.createClass({
 	mixins: [ Router.State, Router.Navigation],
@@ -34,10 +36,19 @@ var Naviagtion = React.createClass({
 						</a>
 					</div>
 					<h3>REST API Documentation</h3>
-					<select id="nav-select">
-						<option>Juzer</option>
-						<option>Juzer</option>
-					</select>
+					<div className="navigation-resource">
+						<h2>Resource<br />
+							<select id="nav-select">
+								<option>Juzer</option>
+								<option>Juzer</option>
+							</select>
+						</h2>
+					</div>
+					<div className="syntax-highlight">
+						<h2>Syntax highlight<br />
+							<Sealious.SyntaxChanger/>
+						</h2>
+					</div>
 				</div>
 				<ul>
 					{resource_type_links}

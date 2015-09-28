@@ -4,6 +4,7 @@ var React = require("react");
 var Router = require("react-router");
 var Description_provider = require("../stores/description-provider.js");
 var Store = require("../stores/store.js");
+var SyntaxStore = require("../stores/syntax-store.js");
 
 module.exports = Sealious;
 
