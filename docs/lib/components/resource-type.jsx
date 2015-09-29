@@ -5,18 +5,26 @@ var SyntaxStore = require("../stores/syntax-store.js");
 var Sealious = require("./app.jsx");
 var Highlight = require('react-highlight');
 
-
 var ResourceType = React.createClass({
 	mixins: [Router.State, Router.Navigation],
 	getInitialState: function(){
 		return {
 			resource_type_description: null,
-			theme: null
+			theme: SyntaxStore.getCookie()
 		}
 	},
 
 	componentDidMount: function() {
+		var self = this;
+
 		this.reloadStructure();
+
+		SyntaxStore.on('syntax', function(){
+			var theme = SyntaxStore.getCookie();
+			self.setState({
+				theme: theme 
+			});
+		});
 	},
 	
 	componentWillReceiveProps: function(){
@@ -34,13 +42,6 @@ var ResourceType = React.createClass({
 					resource_type_description: resource_type_description
 				});
 			});
-
-		SyntaxStore.on('syntax', function(){
-			var theme = SyntaxStore.getChoosenSyntax();
-			self.setState({
-				theme: theme 
-			});
-		});
 	},
 
 	handleMethodChange: function(e){
@@ -52,7 +53,9 @@ var ResourceType = React.createClass({
 
 	render: function() {
 		var resource_type = this.state.resource_type_description;
-		var theme = "css/highlight/" + this.state.theme + ".css";
+
+		var theme = this.state.theme;
+		var link_to_theme = "css/highlight/" + theme + ".css";
 
 		
 		if(resource_type !== null){         //for loading when user will reload page on e.g /#/resource-type/user
@@ -72,7 +75,7 @@ var ResourceType = React.createClass({
 							human_readable_name: {resource_type.human_readable_name}<br />
 							summary: {resource_type.summary}<br />
 							structure: 
-							<link rel="stylesheet" href={theme}/>
+							<link rel="stylesheet" href={link_to_theme}/>
 							<Highlight className='json'>
 								{JSON.stringify(resource_type.fields, null, "\t")}
 							</Highlight>

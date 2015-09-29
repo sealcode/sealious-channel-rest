@@ -1,19 +1,23 @@
 var EventEmitter = require('event-emitter');
+var cookie = require('react-cookie');
 
 var SyntaxStore = new function() {
 
 	var ee = new EventEmitter();
 	this.on = ee.on.bind(ee);
 
-	var last_choosen_syntax = {};
-
-	this.syntaxChange = function(theme){
-		last_choosen_syntax = theme;
+	this.setCookie = function(theme){
+		cookie.save('theme', theme);
 		ee.emit('syntax', theme);
 	};
 
-	this.getChoosenSyntax = function(){
-		return last_choosen_syntax;
+	this.getCookie = function(){
+		var theme = cookie.load('theme');
+		if (theme !== undefined) {
+			return theme;
+		} else {
+			return 'tomorrow';
+		}
 	};
 };
 

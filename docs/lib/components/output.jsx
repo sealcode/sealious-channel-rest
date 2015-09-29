@@ -9,7 +9,7 @@ var Output = React.createClass({
 	getInitialState: function() {
 		return {
 			output: {},
-			theme: null
+			theme: SyntaxStore.getCookie()
 		};
 	},
 	componentWillReceiveProps: function(nextProps) {
@@ -26,7 +26,7 @@ var Output = React.createClass({
 		});
 
 		SyntaxStore.on('syntax', function(){
-			var theme = SyntaxStore.getChoosenSyntax();
+			var theme = SyntaxStore.getCookie();
 			self.setState({
 				theme: theme 
 			});
@@ -38,7 +38,9 @@ var Output = React.createClass({
 		var status = (this.state.output["status"] || "") + " " + (this.state.output["statusText"] || "");
 		var response_url = this.state.output["responseURL"] || "";
 		var output = JSON.stringify(this.state.output["response"], null, '\t');
-		var theme = "css/highlight/" + this.state.theme + ".css";
+
+		var theme = this.state.theme;
+		var link_to_theme = "css/highlight/" + theme + ".css";
 		
 		if (output !== {}) {
 			return (
@@ -46,7 +48,7 @@ var Output = React.createClass({
 					<h1>Output</h1>
 					<h2>
 						<span>{status} {response_url}</span><br />
-						<link rel="stylesheet" href={theme}/>
+						<link rel="stylesheet" href={link_to_theme}/>
 						<Highlight className="json">{output}</Highlight>
 					</h2>
 				</div>
