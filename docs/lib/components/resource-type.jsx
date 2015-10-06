@@ -59,18 +59,24 @@ var ResourceType = React.createClass({
 
 		
 		if(resource_type !== null){         //for loading when user will reload page on e.g /#/resource-type/user
+
 			return (
 				<div className="content">
 					<div className="content-inputs">
 						<h1> Input</h1>
-						<h2>Method 
+						<h2>Method
+
 								<select className="resource-select" value={this.getParams().method} onChange={this.handleMethodChange}>
-									<option value="get">GET</option>
-									<option value="post">POST</option>
-									<option value="delete">DELETE</option>
-									<option value="patch">PATCH</option>
-									<option value="put">PUT</option>
+									<option value="list-all">list all</option>
+									<option value="get-by-id">get by id</option>
+									<option value="get-spec">get description</option>
+									<option value="create-new">create new</option>
+									<option value="replace-by-id">replace by id</option>
+									<option value="edit-by-id">edit by id</option>
+									<option value="remove-by-id">remove by id</option>
+
 								</select><br />
+						
 							name: {resource_type.name}<br />	
 							human_readable_name: {resource_type.human_readable_name}<br />
 							summary: {resource_type.summary}<br />
@@ -79,7 +85,9 @@ var ResourceType = React.createClass({
 							<Highlight className='json'>
 								{JSON.stringify(resource_type.fields, null, "\t")}
 							</Highlight>
+
 							<Router.RouteHandler/>
+						
 						</h2>
 					</div>
 					<Sealious.Output/>
@@ -87,8 +95,7 @@ var ResourceType = React.createClass({
 			);
 		}else{
 			return (
-				<div>
-				</div>
+				<div></div>
 			);
 		}
 	}

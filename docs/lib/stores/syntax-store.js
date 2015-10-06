@@ -16,7 +16,7 @@ var SyntaxStore = new function() {
 		if (theme !== undefined) {
 			return theme;
 		} else {
-			return 'tomorrow';
+			return 'github'; //if cookie isn't set
 		}
 	};
 };

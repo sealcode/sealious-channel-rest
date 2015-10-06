@@ -3,6 +3,7 @@ var Router = require("react-router");
 var Store = require("../stores/store.js");
 var Decription_provider = require("../stores/description-provider.js");
 var Form = require("./form.jsx");
+var Utils = require("../utils.js");
 
 var RestHandler_method = React.createClass({
 	mixins: [Router.State],
@@ -41,19 +42,19 @@ var RestHandler_method = React.createClass({
 	sendRequest: function(e){
 		e.preventDefault();
 		var self = this;
+		var action = this.getParams().method;
 		var resource_type_name = this.getParams().resource_type_name;
-		var method = this.getParams().method;
-		var id = this.getParams().resource_id;
+		var resource_id = this.getParams().resource_id;
 
-		var url = "/api/v1/" + resource_type_name;
+		var obj = Utils.translateReactionToMethod(resource_type_name, resource_id);
 
-		if (method !== "get" && method !== "delete") {
+		var method = obj[action].http_method;
+
+		if (method !== "GET" && method !== "DELETE") {
 			var data = this.refs.form.getValues();
 		}
 
-		if (id !== undefined){
-			url = url + "/" + id;
-		}
+		var url = obj[action].url;
 
 		Store.request(method, url, data)
 			.then(function(response){
@@ -61,44 +62,41 @@ var RestHandler_method = React.createClass({
 					response_content: response
 				})
 			}
-);
-
-	},
-
-	returnUrl: function(){
-		var resource_type_name = this.getParams().resource_type_name;
-		var id = this.getParams().resource_id;
-		var url = "/api/v1/" + resource_type_name;
-
-		if (id !== undefined){
-			url = url + "/" + id;
-		}
-
-		return url;
+		);
 
 	},
 
 	render: function() {
-		var method = this.getParams().method;
-		var url = this.returnUrl();
+		var action = this.getParams().method;
+		var resource_type_name = this.getParams().resource_type_name;
+		var resource_id = this.getParams().resource_id;
 
-		if (method === 'get' || method === 'delete') {
-			return (
-				<div>
-					<p>Method: {method.toUpperCase()} <code>{url}</code></p>
-					<br/>
-					<button onClick={this.sendRequest}>sendRequest</button>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<p>Method: {method.toUpperCase()} <code>{url}</code></p>
-					<Form ref="form" onSubmit={this.sendRequest}/>
-				</div>
-			);
+		var obj = Utils.translateReactionToMethod(resource_type_name, resource_id);
+
+		var page = [];
+
+		page.push(
+			<p>Method: {obj[action].http_method} <code>{obj[action].url}</code></p>
+		)
+
+		if (obj[action].needs_id === true) {
+			page.push(
+				<span>needs_id === true</span>
+			)
 		}
 
+		if (obj[action].needs_field_values === true) {
+			page.push(
+				<Form ref="form" onSubmit={this.sendRequest}/>
+			)
+		}
+
+		return (
+			<div>
+				{page}
+				<button onClick={this.sendRequest}>sendRequest</button>
+			</div>
+		);
 	}
 });
 

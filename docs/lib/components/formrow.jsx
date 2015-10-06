@@ -48,6 +48,9 @@ var FormRow = React.createClass({
 				<td>
 					<input type={this.state.type} value={this.state.value} onChange={this.changeAttributeValue("value")}/>
 				</td>
+				<td>
+					<button>remove</button>
+				</td>
 			</tr>
 		);
 	}

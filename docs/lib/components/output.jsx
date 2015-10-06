@@ -42,7 +42,7 @@ var Output = React.createClass({
 		var theme = this.state.theme;
 		var link_to_theme = "css/highlight/" + theme + ".css";
 		
-		if (output !== {}) {
+		if (output !== undefined) {
 			return (
 				<div className="content-outputs">
 					<h1>Output</h1>
@@ -55,11 +55,12 @@ var Output = React.createClass({
 			);
 		} else {
 			return (
-				<div />
+				<div className="content-outputs">
+					<h1>Output</h1>
+				</div>
 			)
 		}
 
 	}
 })
 module.exports = Output;
-				// <pre id="pre-results">{output}</pre>

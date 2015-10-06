@@ -6,24 +6,35 @@ Sealious.SyntaxChanger = require("./syntax-changer.jsx");
 var Naviagtion = React.createClass({
 	mixins: [ Router.State, Router.Navigation],
 
-	prepareListResourceTypes: function(){
+	prepareListResourceTypes: function(mode){
 
 		var structure = this.props.structure.map(function(resource_type){
-				// <li id={resource_type.name} key={resource_type.name}>
-			 // 		<Router.Link to="resource-type-view" params={{resource_type_name:resource_type.name}}>{resource_type.human_readable_name}</Router.Link>
-				// </li>
-			return (
-				<Router.Link to="resource-type-view" params={{resource_type_name:resource_type.name}}>
-					<li id={resource_type.name} key={resource_type.name}>{resource_type.human_readable_name}</li>
-				</Router.Link>
-			);
+			if (mode === 1) {
+				return (
+					<Router.Link to="resource-type-view" params={{resource_type_name:resource_type.name}}>
+						<li id={resource_type.name} key={resource_type.name}>{resource_type.human_readable_name}</li>
+					</Router.Link>
+				)
+			} else {
+				return (
+					<option value={resource_type.name}>{resource_type.human_readable_name}</option>
+				)
+			};
 		}.bind(this));
 
 		return structure;
 	},
 
+	handleChangeFromSelect: function(e){
+		var resource_type = e.target.value;
+		console.log(resource_type);
+		e.preventDefault();
+		return null;
+	},
+
 	render: function() {
-		var resource_type_links = this.prepareListResourceTypes();
+		var resource_type_links = this.prepareListResourceTypes(1);
+		var resource_type_options = this.prepareListResourceTypes();
 
 		console.log(resource_type_links)
 
@@ -38,9 +49,8 @@ var Naviagtion = React.createClass({
 					<h3>REST API Documentation</h3>
 					<div className="navigation-resource">
 						<h2>Resource<br />
-							<select id="nav-select">
-								<option>Juzer</option>
-								<option>Juzer</option>
+							<select id="nav-select" defaultValue="Choose" onChange={this.handleChangeFromSelect}>
+								{resource_type_options}
 							</select>
 						</h2>
 					</div>
