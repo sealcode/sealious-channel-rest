@@ -9,6 +9,7 @@ var SyntaxStore = require("../stores/syntax-store.js");
 module.exports = Sealious;
 
 Sealious.Navigation = require("./navigation.jsx");
+Sealious.SelectAction = require("./select-action.jsx");
 Sealious.ResourceType = require("./resource-type.jsx");
 Sealious.Output = require("./output.jsx");
 Sealious.RestHandler_method = require("./rest-handler-method.jsx");

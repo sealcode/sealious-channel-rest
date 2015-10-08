@@ -4,7 +4,6 @@ var Description_provider = require("../stores/description-provider.js");
 var SyntaxStore = require("../stores/syntax-store.js");
 var Sealious = require("./app.jsx");
 var Highlight = require('react-highlight');
-var Utils = require('../utils.js');
 
 var ResourceType = React.createClass({
 	mixins: [Router.State, Router.Navigation],
@@ -50,26 +49,11 @@ var ResourceType = React.createClass({
 		return null;
 	},
 
-	loadOptionsToSelect: function(){
-		var obj = Utils.translateReactionToMethod();
-		var options = [];
-
-		for (var prop in obj) {
-			options.push(
-				<option value={prop}>{obj[prop].name}</option>
-			)
-		}
-		
-		return options;
-	},
-
 	render: function() {
 		var resource_type = this.state.resource_type_description;
 		var theme = this.state.theme;
 		var link_to_theme = "css/highlight/" + theme + ".css";
 		var resource_type_name = this.getParams().resource_type_name;
-
-		var options = this.loadOptionsToSelect();
 
 		if(resource_type !== null){         //for loading when user will reload page on e.g /#/resource-type/user
 			return (
@@ -77,9 +61,9 @@ var ResourceType = React.createClass({
 					<div className="content-inputs">
 						<h1> Input</h1>
 						<h2>Method
-								<select className="resource-select" value={this.getParams().method} onChange={this.handleMethodChange}>
-									{options}
-								</select><br />
+
+							<Sealious.SelectAction method={this.getParams().method} handleMethodChange={this.handleMethodChange}/>
+							<br />
 							name: {resource_type.name}<br />	
 							human_readable_name: {resource_type.human_readable_name}<br />
 							summary: {resource_type.summary}<br />
