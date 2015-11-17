@@ -15,7 +15,7 @@ var Description_provider = new function() {
 		if (cached_structure == null) {
 			if(!loading){
 				loading = true;
-				return qwest.get('/api/v1/description')
+				return qwest.get('/api/v1/specification')
 					.then(function(xhr, response) {
 						cached_structure = response;
 						ee.emit('change', response);

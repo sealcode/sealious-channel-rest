@@ -25,16 +25,24 @@ var Form = React.createClass({
 		return ret;
 	},
 
-	render: function() {
+	removeRow: function(index){
+		var rows = this.state.rows;
+		rows[index] = undefined;
+		this.setRows(rows);
+		console.log(rows)
+	},
 
-		var rows = this.state.rows.map(function(row, index){
+	render: function() {
+		var self = this;
+
+		var rows = self.state.rows.map(function(row, index){
 			return (
-				<FormRow ref={"row_"+index} rowDescription={row}/>
+				<FormRow ref={"row_"+index} rowDescription={row} onRemoveRow={self.removeRow} index={index}/>
 			)
 		})
 
 		return (
-			<form onSubmit={this.props.onSubmit}>
+			<form onSubmit={self.props.onSubmit}>
 				<table>
 					<tbody>
 						<tr>
@@ -54,9 +62,9 @@ var Form = React.createClass({
 						{rows}
 					</tbody>
 				</table>
-				<input type="submit"/>
 			</form>
 		);
+				// <input type="submit"/>
 	}
 });
 

@@ -31,6 +31,10 @@ var FormRow = React.createClass({
 		}.bind(this);
 	},
 
+	handleClick: function(){
+		this.props.onRemoveRow(this.props.index)
+	},
+
 	render: function() {
 		var row = this.props.rowDescription;
 
@@ -49,7 +53,7 @@ var FormRow = React.createClass({
 					<input type={this.state.type} value={this.state.value} onChange={this.changeAttributeValue("value")}/>
 				</td>
 				<td>
-					<button>remove</button>
+					<div onClick={this.handleClick}>remove</div>
 				</td>
 			</tr>
 		);

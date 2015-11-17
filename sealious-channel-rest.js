@@ -23,14 +23,14 @@ REST.set_url_base = function(base_url) {
 	}
 	www_server.route({
 		method: "GET",
-		path: base_url + "/description",
+		path: base_url + "/specification",
 		handler: function(request, reply) {
 			var resource_types = Sealious.ChipManager.get_chips_by_type('resource_type');
 
 			var signatures = [];
 
 			for (element in resource_types) {
-				signatures.push(resource_types[element].get_signature());
+				signatures.push(resource_types[element].get_specification());
 			}
 			reply(signatures);
 		}
@@ -40,10 +40,12 @@ REST.set_url_base = function(base_url) {
 REST.add_path = function(url, resource_type_name) {
 
 	var resource_type_object = Sealious.ChipManager.get_chip("resource_type", resource_type_name);
+	console.log(resource_type_name, resource_type_object.has_large_data_fields());
+
 
 	www_server.route({
 		method: "GET",
-		path: url + "/signature",
+		path: url + "/specification",
 		handler: function(request, reply, context) {
 				Sealious.Dispatcher.resources.get_resource_type_signature(context, resource_type_name)
 					.then(reply, reply);

@@ -59,7 +59,9 @@ var ResourceType = React.createClass({
 			return (
 				<div className="content">
 					<div className="content-inputs">
-						<h1> Input</h1>
+						<h1> 
+							Input
+						</h1>
 						<h2>Method
 
 							<Sealious.SelectAction method={this.getParams().method} handleMethodChange={this.handleMethodChange}/>
