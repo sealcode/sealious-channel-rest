@@ -6,6 +6,14 @@ var get_context = www_server.get_context;
 
 var REST = new Sealious.ChipTypes.Channel("rest");
 
+REST.default_configuration = {
+    url_base: "/api/v1"
+}
+
+REST.start = function(){
+    REST.set_url_base(REST.configuration.url_base);
+}
+
 REST.set_url_base = function(base_url) {
     var resource_types = Sealious.ChipManager.get_all_resource_types();
     for (var i in resource_types) {
