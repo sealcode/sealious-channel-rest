@@ -11,16 +11,11 @@ REST.default_configuration = {
 }
 
 REST.start = function(){
-    REST.set_url_base(REST.configuration.url_base);
-}
-
-REST.set_url_base = function(base_url) {
     var resource_types = Sealious.ChipManager.get_all_resource_types();
     for (var i in resource_types) {
-        var complete_url = base_url + '/' + resource_types[i];
+        var complete_url = REST.configuration.url_base + '/' + resource_types[i];
         REST.add_path(complete_url, resource_types[i]);
     }
-
 }
 
 REST.add_path = function(url, resource_type_name){
