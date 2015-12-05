@@ -13,10 +13,9 @@ ConfigManager.set_default_config(
     }
 );
 
-var rest_url_base = ConfigManager.get_config().rest_config.url_base;
-
 REST.start = function(){
     var resource_types = Sealious.ChipManager.get_all_resource_types();
+    var rest_url_base = ConfigManager.get_config().rest_config.url_base;
     for (var i in resource_types) {
         var complete_url = rest_url_base + '/' + resource_types[i];
         REST.add_path(complete_url, resource_types[i]);
