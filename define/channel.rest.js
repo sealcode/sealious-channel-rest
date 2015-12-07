@@ -58,36 +58,66 @@ REST.add_path = function(url, resource_type_name){
     });
 
     www_server.route({
-        method: ["GET", "DELETE", "PATCH", "PUT"],
+        method: ["GET", "DELETE"],
         path: url+"/{id}",
         handler: function(request, reply){
             var method = request.method;
-            if(request.headers["x-http-method-override"]){
-                method = request.headers["x-http-method-override"];
-            }
-
-            var ResourceManager = Sealious.Dispatcher.resources;
 
             var context = get_context(request);
 
             var promise;
             switch(method.toUpperCase()){
                 case "DELETE":
-                    ResourceManager.delete(context, resource_type_name, request.params.id)
+                    Sealious.ResourceManager.delete(context, resource_type_name, request.params.id)
                     .then(function(response){reply("").code(204);}, reply);
                 return;
                 break;
-                case "PUT":
-                    promise = ResourceManager.update_resource(context, resource_type_name, request.params.id, request.payload);
-                break;
-                case "PATCH":
-                    promise = ResourceManager.patch_resource(context, resource_type_name, request.params.id, request.payload);
-                break;
                 case "GET":
-                    promise = ResourceManager.get_by_id(context, request.params.id);
+                    promise = Sealious.ResourceManager.get_by_id(context, request.params.id);
                 break;
+                default:
+                    promise = Promise.reject({error:"unsupported method:" + method.toUpperCase()})
             }            
             promise.then(reply, reply);
         }
     });
+
+    www_server.route({
+        method: ["PATCH", "PUT", "POST"],
+        path: url+"/{id}",
+        config: {
+            payload: {
+                maxBytes: 209715200,
+                output: resource_type_object.has_large_data_fields()? 'stream' : "data",
+            },
+            handler: function(request, reply){
+
+                var context = get_context(request);
+                
+                var method = request.method;
+                if(request.headers["x-http-method-override"]){
+                    method = request.headers["x-http-method-override"];
+                }
+
+                if(request.payload["x-http-method-override"]){
+                    method = request.payload["x-http-method-override"];
+                    delete request.payload["x-http-method-override"];
+                }
+
+                var promise;
+                switch(method.toUpperCase()){
+                    case "PUT":
+                        promise = Sealious.ResourceManager.update_resource(context, resource_type_name, request.params.id, request.payload);
+                    break;
+                    case "PATCH":
+                        promise = Sealious.ResourceManager.patch_resource(context, resource_type_name, request.params.id, request.payload);
+                    break;
+                    default:
+                        promise = Promise.reject({error:"unsupported method:" + method.toUpperCase()})
+                }
+                promise.then(reply, reply);
+            }
+        }
+    });
+
 }
