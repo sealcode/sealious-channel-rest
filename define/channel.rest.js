@@ -30,18 +30,18 @@ REST.add_path = function(url, resource_type_name){
         method: "GET",
         path: url+"/signature",
         handler: function(request, reply, context){
-            Sealious.Dispatcher.resources.get_resource_type_signature(context, resource_type_name)
+            Sealious.ResourceManager.get_resource_type_signature(context, resource_type_name)
             .then(reply, reply).catch(reply);
         }
             // hanlder GET ma wypisać wszystkie zasoby o podanym typie
-        });
+    });
 
     www_server.route({
         method: "GET",
         path: url,
         handler: function(request, reply){
             var context = get_context(request);
-            Sealious.Dispatcher.resources.list_by_type(context, resource_type_name)
+            Sealious.ResourceManager.list_by_type(context, resource_type_name)
             .then(reply, reply);
         }
     });
@@ -56,7 +56,7 @@ REST.add_path = function(url, resource_type_name){
             },
             handler: function(request, reply){
                 var context = get_context(request);
-                Sealious.Dispatcher.resources.create(context, resource_type_name, request.payload)
+                Sealious.ResourceManager.create(context, resource_type_name, request.payload)
                 .then(function(response){
                     reply(response).code(201);
                 }, reply)
