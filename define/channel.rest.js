@@ -1,18 +1,25 @@
 require("sealious-www-server");
 var Sealious = require("sealious");
 var www_server = Sealious.ChipManager.get_chip("channel", "www_server");
+var ConfigManager = Sealious.ConfigManager;
 
 var get_context = www_server.get_context;
 
 var REST = new Sealious.ChipTypes.Channel("rest");
 
-REST.set_url_base = function(base_url) {
+ConfigManager.set_default_config( 
+    "rest_config", {
+        url_base: "/api/v1"
+    }
+);
+
+REST.start = function(){
     var resource_types = Sealious.ChipManager.get_all_resource_types();
+    var rest_url_base = ConfigManager.get_config().rest_config.url_base;
     for (var i in resource_types) {
-        var complete_url = base_url + '/' + resource_types[i];
+        var complete_url = rest_url_base + '/' + resource_types[i];
         REST.add_path(complete_url, resource_types[i]);
     }
-
 }
 
 REST.add_path = function(url, resource_type_name){
