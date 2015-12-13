@@ -4,9 +4,9 @@ var Sealious = require("sealious");
 var REST = new Sealious.ChipTypes.Channel("rest");
 
 Sealious.ConfigManager.set_default_config( 
-    "rest_config", {
-        url_base: "/api/v1"
-    }
+	"rest_config", {
+		url_base: "/api/v1"
+	}
 );
 
 var http_to_subject_method = {
@@ -30,38 +30,38 @@ function handle_request(request, reply, context){
 
 	var action_name = http_to_subject_method[request.method];
 
-    try{
-	   subject.perform_action(context, action_name, request.body)
-       .then(reply)
-       .catch(reply);
-    }catch(e){
-        reply(e);
-        return;
-    }
+	try{
+		subject.perform_action(context, action_name, request.body)
+		.then(reply)
+		.catch(reply);
+	}catch(e){
+		reply(e);
+		return;
+	}
 }
 
 REST.start = function(){
-    var resource_types = Sealious.ChipManager.get_all_resource_types();
+	var resource_types = Sealious.ChipManager.get_all_resource_types();
 	var www_server = Sealious.ChipManager.get_chip("channel", "www_server");
-    var rest_url_base = Sealious.ConfigManager.get_config().rest_config.url_base;
+	var rest_url_base = Sealious.ConfigManager.get_config().rest_config.url_base;
 
-    var path = `${rest_url_base}/{elements*}`;
+	var path = `${rest_url_base}/{elements*}`;
 
-    www_server.route({
-    	method: ["GET", "DELETE"],
-    	path: path,
-    	handler: handle_request
-    })
+	www_server.route({
+		method: ["GET", "DELETE"],
+		path: path,
+		handler: handle_request
+	})
 
-    www_server.route({
-        method: ["PATCH", "PUT", "POST"],
-        path: path,
-        config: {
-            payload: {
-                maxBytes: 209715200,
-                output: "stream",
-            },
-            handler: handle_request
-        }
-    });
+	www_server.route({
+		method: ["PATCH", "PUT", "POST"],
+		path: path,
+		config: {
+			payload: {
+				maxBytes: 209715200,
+				output: "stream",
+			},
+			handler: handle_request
+		}
+	});
 }
