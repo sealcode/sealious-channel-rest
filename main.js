@@ -12,32 +12,17 @@ Sealious.ConfigManager.set_default_config(
 var http_to_subject_method = {
 	"GET": "show",
 	"POST": "create",
-	"PATCH": "update",
+	"PATCH": "edit",
 	"PUT": "replace",
 	"DELETE": "delete"
 }
 
 function handle_request(request, reply, context){
 	var path_elements = request.params.elements.split('/');
-	var path = new Sealious.SubjectPath(path_elements);
-	var subject;
-	try{
-		subject = Sealious.RootSubject.get_subject(path);		
-	}catch(e){
-		reply(e);
-		return;
-	}
-
 	var action_name = http_to_subject_method[request.method];
-
-	try{
-		subject.perform_action(context, action_name, request.body)
-		.then(reply)
-		.catch(reply);
-	}catch(e){
-		reply(e);
-		return;
-	}
+	var action = new Sealious.Action(path_elements, action_name);
+	action.run(context, request.payload)
+	.then(reply).catch(reply);
 }
 
 REST.start = function(){
