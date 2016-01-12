@@ -1,6 +1,6 @@
 {
   "name": "sealious-channel-rest",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "main": "sealious-channel-rest.js",
   "scripts": {
