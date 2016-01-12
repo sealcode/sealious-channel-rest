@@ -20,6 +20,20 @@ REST.start = function(){
         var complete_url = rest_url_base + '/' + resource_types[i];
         REST.add_path(complete_url, resource_types[i]);
     }
+
+    www_server.route({
+        method: "GET",
+        path: rest_url_base + "/specification",
+        handler: function(request, reply){
+            var rep = {};
+            var resource_types = Sealious.ChipManager.get_chips_by_type("resource_type")            
+            for(var i in resource_types){
+                var resource_type = resource_types[i];
+                rep[resource_type.name] = resource_type.get_specification();
+            }
+            reply(rep);
+        }
+    })
 }
 
 REST.add_path = function(url, resource_type_name){
@@ -28,10 +42,9 @@ REST.add_path = function(url, resource_type_name){
 
     www_server.route({
         method: "GET",
-        path: url+"/signature",
+        path: url+"/specification",
         handler: function(request, reply, context){
-            Sealious.ResourceManager.get_resource_type_signature(context, resource_type_name)
-            .then(reply, reply).catch(reply);
+            reply(resource_type_object.get_specification())
         }
             // hanlder GET ma wypisać wszystkie zasoby o podanym typie
     });
