@@ -22,7 +22,7 @@ function handle_request(request, reply, context){
 	var path_elements = request.params.elements.split('/');
 	var action_name = http_to_subject_method[request.method];
 	var action = new Sealious.Action(path_elements, action_name);
-	action.run(context, merge(request.payload, request.query))
+	action.run(context, request.payload)
 	.then(reply).catch(reply);
 }
 
