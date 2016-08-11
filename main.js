@@ -1,5 +1,5 @@
-require("sealious-www-server");
 var Sealious = require("sealious");
+require("sealious-www-server");
 var merge = require("merge");
 
 var REST = new Sealious.ChipTypes.Channel("rest");
