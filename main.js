@@ -1,3 +1,4 @@
+"use strict";
 var Sealious = require("sealious");
 require("sealious-www-server");
 var merge = require("merge");
@@ -26,7 +27,6 @@ function handle_request(context, request){
 }
 
 REST.start = function(){
-	var resource_types = Sealious.ChipManager.get_all_resource_types();
 	var www_server = Sealious.ChipManager.get_chip("channel", "www_server");
 	var rest_url_base = Sealious.ConfigManager.get_config().rest_config.url_base;
 
