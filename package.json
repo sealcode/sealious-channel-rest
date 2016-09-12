@@ -13,6 +13,6 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "merge": "^1.2.0",
-    "sealious-www-server": "github:sealious/sealious-www-server#references"
+    "sealious-www-server": "github:sealious/sealious-www-server#alpha"
   }
 }
