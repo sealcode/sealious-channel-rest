@@ -5,12 +5,6 @@ var merge = require("merge");
 
 var REST = new Sealious.ChipTypes.Channel("rest");
 
-Sealious.ConfigManager.set_default_config( 
-	"rest_config", {
-		url_base: "/api/v1"
-	}
-);
-
 var http_to_subject_method = {
 	"GET": "show",
 	"POST": "create",
